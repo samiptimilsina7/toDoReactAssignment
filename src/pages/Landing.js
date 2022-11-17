@@ -1,12 +1,16 @@
 import { useState } from "react";
 
 export const Landing=()=>{
-    const [toDoList, setToDoList]=useState(['mango', 'apple']);
+    const [toDoList, setToDoList]=useState([]);
+    const onAddToDo=(todo)=>{
+        // console.log(todo);
+        setToDoList([...toDoList,todo]);
+    }
     return(
         <section className="todo-box">
             <Title/>
             <ToDoBody toDoList={toDoList}/>
-            <ToDoTail/>
+            <ToDoTail onAddToDo={onAddToDo}/>
         </section>
     );
 }
@@ -25,20 +29,22 @@ export const ToDoBody=({toDoList})=>{
         <div className="todo-body">
             <div className="todo-list">
                 <div className="todo">
-                    {toDoList.map(toDo=><div className="toDo">{toDo}</div>)}
+                    <div className="toDo">
+                        {toDoList.map(toDo=><p>{toDo}</p>)}
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
 
-export const ToDoTail=()=>{
+export const ToDoTail=({onAddToDo})=>{
     const [todo,setTodo]=useState('');
     const handleInput=(e)=>{
         setTodo(e.target.value);
     }
     const handleClick=()=>{
-        console.log(todo)
+        onAddToDo(todo);
     }
     return(
         <div className="todo-tail">
